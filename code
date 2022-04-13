@@ -1,0 +1,40 @@
+from wordcloud import WordCloud #テキストマップと呼ばれる画像を作るためのwordcloud
+import matplotlib.pyplot as plt #Python上で出来上がった画像を見るためのmatplotlib
+
+f = open(r"ファイルのPATH",encoding='utf-8') #alice_in_wonderland.txtを開く
+text = f.read() #alice_in_wonderland.txtの中身を読み込ませる
+
+#連結語句を入れないテキストマップの作成
+WordCloud_Alice_in_wonderland_1 = WordCloud(width = 900, #出力される画像の縦幅の指定
+                                          height = 500, #出力される画像の横幅の指定
+                                          background_color='white', #背景色の指定
+                                          colormap='summer', #文字の色（カラーセット）の指定。
+                                          collocations=False, #連結語句の有無の指定
+                                          font_path=r"フォントの保存場所" #英語に対応したフォントの指定
+                                          ).generate(text)
+
+#連結語句を入れたテキストマップの作成
+WordCloud_Alice_in_wonderland_2 = WordCloud(width = 900, #出力される画像の縦幅の指定
+                                          height = 500, #出力される画像の横幅の指定
+                                          background_color='white', #背景色の指定
+                                          colormap='summer', #文字の色（カラーセット）の指定。
+                                          collocations=True, #連結語句の有無の指定
+                                          font_path=r"フォントの保存場所" #英語に対応したフォントの指定
+                                          ).generate(text)
+
+#連結語句を入れないテキストマップの表示（Python上で）
+plt.figure(figsize=(15,12))
+plt.imshow(WordCloud_Alice_in_wonderland_1)
+plt.axis('off')
+plt.show()
+
+#連結語句を入れたテキストマップの表示（Python上で）
+plt.figure(figsize=(15,12))
+plt.imshow(WordCloud_Alice_in_wonderland_2)
+plt.axis('off')
+plt.show()
+
+#連結語句を入れなかったテキストマップの出力
+WordCloud_Alice_in_wonderland_1.to_file(r"ファイルの保存場所")
+#連結語句を入れたテキストマップの出力
+WordCloud_Alice_in_wonderland_2.to_file(r"ファイルの保存場所")
